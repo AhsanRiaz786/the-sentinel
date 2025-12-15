@@ -24,19 +24,23 @@ Cyber-sandbox for compiling and running untrusted C code with OS-level controls,
    - Tailwind-based “cyber” theme.
 
 ## Repository layout
-- `sentinel.c` — C engine (queue, compile, sandbox run, JSON out)
-- `Makefile` — build helper for sentinel
-- `api/app.py` — Flask API bridge (`/run`, `/health`)
-- `api/requirements.txt` — Python deps
-- `api/test_run.py` — sample POST to the API
+- `engine/` — C engine source
+  - `sentinel.c` — C engine (queue, compile, sandbox run, JSON out)
+  - `Makefile` — build helper for sentinel
+  - `sentinel` — compiled binary (generated)
+- `api/` — Flask API bridge
+  - `app.py` — Flask API bridge (`/run`, `/health`)
+  - `requirements.txt` — Python deps
+  - `test_run.py` — sample POST to the API
 - `ui/` — Vite/React/Tailwind/Monaco front-end
+- `tests/` — test C code files (bad.c, banned.c, loop.c, user_code.c)
 - `.gitignore` — ignores build, venv, node_modules, etc.
 
 ## Building and running
 ### 1) Build the C engine
 ```bash
-cd /Users/ahsanriaz/Developer/the-sentinel
-make        # outputs ./sentinel
+cd engine
+make        # outputs ./sentinel in engine/
 ```
 
 ### 2) Run the Flask API
@@ -45,7 +49,7 @@ cd api
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-export SENTINEL_BIN="../sentinel"   # optional if not in default location
+export SENTINEL_BIN="../engine/sentinel"   # optional if not in default location
 export FLASK_APP=app.py
 export FLASK_RUN_PORT=8000          # UI default points to 8000
 flask run --host 0.0.0.0 --port 8000
@@ -93,7 +97,7 @@ python test_run.py
 
 ## Common issues
 - CORS / port mismatch: ensure API runs on the port set in `VITE_API_BASE` (default 8000) and that Flask CORS is enabled (already added).
-- Sentinel binary path: set `SENTINEL_BIN` if `./sentinel` isn’t found.
+- Sentinel binary path: set `SENTINEL_BIN` if `../engine/sentinel` isn't found.
 - Infinite loops: will be killed at ~2s and reported as `TimeLimitExceeded`.
 
 ## Demo ideas
