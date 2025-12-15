@@ -57,8 +57,9 @@ def run_code():
                 }
             ), 500
 
-        # Sentinel outputs JSON per line; take the first line
-        line = completed.stdout.strip().splitlines()[0] if completed.stdout else ""
+        # Sentinel outputs JSON per job; grab the last non-empty line
+        lines = [ln for ln in completed.stdout.splitlines() if ln.strip()]
+        line = lines[-1] if lines else ""
         try:
             result = json.loads(line)
         except json.JSONDecodeError:
