@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Path to the compiled C engine
-SENTINEL_BIN = os.environ.get("SENTINEL_BIN", os.path.join(os.path.dirname(__file__), "..", "sentinel"))
+SENTINEL_BIN = os.environ.get("SENTINEL_BIN", os.path.join(os.path.dirname(__file__), "..", "engine", "sentinel"))
 
 # Basic guardrails
 MAX_CODE_BYTES = 200_000  # ~200 KB
