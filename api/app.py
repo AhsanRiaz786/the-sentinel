@@ -3,8 +3,10 @@ import os
 import subprocess
 import tempfile
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Path to the compiled C engine
 SENTINEL_BIN = os.environ.get("SENTINEL_BIN", os.path.join(os.path.dirname(__file__), "..", "sentinel"))
@@ -78,6 +80,6 @@ def health():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=8000, debug=True)
 
 
