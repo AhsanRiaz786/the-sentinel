@@ -1,1 +1,13 @@
 sentinel
+user_code
+loop
+sentinel.c
+user_code.c
+loop.c
+.DS_Store
+.vscode
+.idea
+.gitignore
+.git
+.gitignore
+.gitignore
