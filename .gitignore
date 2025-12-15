@@ -1,13 +1,20 @@
-sentinel
-user_code
-loop
-sentinel.c
-user_code.c
-loop.c
+# General
 .DS_Store
-.vscode
 .idea
-.gitignore
-.git
-.gitignore
-.gitignore
+.vscode
+
+# Build artifacts
+/sentinel
+*.o
+/tmp/sentinel-bin-*
+/a.out
+
+# Python
+__pycache__/
+*.pyc
+/api/.venv
+
+# Node / Vite
+/ui/node_modules
+/ui/dist
+/ui/.vite
